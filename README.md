@@ -16,6 +16,7 @@ this project is an example to manipulate physical memory inside the context of a
 ## what does the driver do?
 
 simply exploits an important check determined to inform the driver itself off s.m.a.r.t presence.
+(also, yes, while writing this project I have figured the mem block scan for their device control works also perfectly to scan the disassembled addresses. maybe +11 or +41 are holders for some other structure which those addresses are based off? or a pure stack/aslr/offsetting coincidence? not sure.)
 ```cpp
    if ( a5 )
     {
