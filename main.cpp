@@ -9,7 +9,6 @@ ULONG64 offset = 0;
 NTSTATUS DriverEntry(PDRIVER_OBJECT, PUNICODE_STRING)
 {
     // Hardcoded information as we do not really need to add another function here; the goal is to keep this code as simple as possible
-
     uintptr_t disk_mapped_region = 0xfffff8073aed0000;
     uintptr_t disk_mapped_offset = disk_mapped_region + 0xee34;
     UCHAR* p = reinterpret_cast<UCHAR*>(disk_mapped_offset);
@@ -23,12 +22,12 @@ NTSTATUS DriverEntry(PDRIVER_OBJECT, PUNICODE_STRING)
             if (hs.len >= 3 && p[offset] == 0x48 && p[offset + 1] == 0x8d && p[offset + 2] == 0x54) {
                 // lea     rdx, [rsp+2C0h+Dst
                 // 48 8D 54 ?? ?? ?? (opcode for lea rdx, [rsp+...])
-                return offset;
+                break;
             }
             offset += len;
         }
         else {
-            break;
+            return 0xdeadbeef;
         }
     }
 
